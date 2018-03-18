@@ -152,6 +152,16 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 			resize(hashtable, &hash_size, RESIZE_HALVE);
 			break;
 		}
+
+		if (command) {
+			free(command);
+		}
+		if (frst_arg) {
+			free(frst_arg);
+		}
+		if (scnd_arg) {
+			free(scnd_arg);
+		}
 	}
 
 	return SUCCESS_CODE;

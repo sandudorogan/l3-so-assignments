@@ -255,6 +255,7 @@ void empty_list(list *sentinel)
 		proxy = proxy->next;
 	} while (proxy);
 	// Free the last one.
+	free_elem(proxy->prev);
 	free(proxy);
 
 	sentinel->first = NULL;

@@ -200,13 +200,13 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 {
 	entry *proxy = sentinel->first;
 
-	while (proxy->next) {
+	do {
 		if (!(*compare_func)(proxy->elem, elem)) {
 			return FOUND;
 		}
 
 		proxy = proxy->next;
-	}
+	} while (proxy->next);
 
 	return NOT_FOUND;
 }
@@ -217,13 +217,13 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 {
 	entry *proxy = sentinel->first;
 
-	while (proxy->next) {
+	do {
 		if (!(*compare_func)(proxy->elem, elem)) {
 			return proxy;
 		}
 
 		proxy = proxy->next;
-	}
+	} while (proxy->next);
 
 	return NULL;
 }
@@ -237,7 +237,7 @@ void empty_list(list *sentinel)
 	entry *proxy = sentinel->first;
 
 	// Go to the last.
-	while (proxy->next) {
+	do {
 		// Free the previous.
 		if (proxy->prev) {
 			free_elem(proxy->prev->elem);
@@ -245,7 +245,7 @@ void empty_list(list *sentinel)
 		}
 		// Go to the next.
 		proxy = proxy->next;
-	}
+	} while (proxy->next);
 	// Free the last one.
 	free(proxy);
 
@@ -270,11 +270,11 @@ void print_as_string(const list *sentinel)
 
 	entry *proxy = sentinel->first;
 
-	while (proxy->next) {
+	do {
 		printf("%s ", proxy->elem);
 
 		proxy = proxy->next;
-	}
+	} while (proxy->next);
 	printf("\n");
 
 	fflush(stdout);
@@ -290,11 +290,11 @@ void print_list_in_file(const list *sentinel, FILE *print_file)
 
 	entry *proxy = sentinel->first;
 
-	while (proxy->next) {
+	do {
 		fprintf(print_file, "%s ", proxy->elem);
 
 		proxy = proxy->next;
-	}
+	} while (proxy->next);
 	fprintf(print_file, "\n");
 
 	fflush(print_file);

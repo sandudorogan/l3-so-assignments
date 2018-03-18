@@ -231,7 +231,7 @@ void find(list **hashtable, int hash_size, char *word, char *file_name)
 
 	result_file = stdout;
 	if (file_name) {
-		result_file = fopen(file_name, "w");
+		result_file = fopen(file_name, "a");
 		DIE(!result_file, "Could not open the file");
 	}
 
@@ -266,7 +266,7 @@ int print_bucket(list **hashtable, int hash_size, char *index,
 
 	result_file = stdout;
 	if (file_name) {
-		result_file = fopen(file_name, "w");
+		result_file = fopen(file_name, "a");
 		DIE(!result_file, "Could not open the file");
 	}
 
@@ -286,7 +286,7 @@ void print(list **hashtable, int hash_size, char *file_name)
 
 	result_file = stdout;
 	if (file_name) {
-		result_file = fopen(file_name, "w");
+		result_file = fopen(file_name, "a");
 		DIE(!result_file, "Could not open the file");
 	}
 

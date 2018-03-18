@@ -44,7 +44,7 @@ int add_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry)
 {
 	int word_pos;
 
-	// word_pos = hash(entry, hash_size);
+	word_pos = hash(entry, hash_size);
 	return add_no_dup(hashtable[word_pos], entry, &strcmp);
 }
 
@@ -52,7 +52,7 @@ void append_in_hash(list **hashtable, int hash_size, entry *to_be_added)
 {
 	int word_pos;
 
-	// word_pos = hash(to_be_added->elem, hash_size);
+	word_pos = hash(to_be_added->elem, hash_size);
 	add_at_end(hashtable[word_pos], to_be_added);
 }
 
@@ -62,7 +62,7 @@ int remove_from_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
 {
 	int word_pos;
 
-	// word_pos = hash(entry, hash_size);
+	word_pos = hash(entry, hash_size);
 	return remove_from_list(hashtable[word_pos], entry, compare_func);
 }
 
@@ -71,7 +71,7 @@ int find_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
 {
 	int word_pos;
 
-	// word_pos = hash(entry, hash_size);
+	word_pos = hash(entry, hash_size);
 	return find_in_list(hashtable[word_pos], entry, &strcmp);
 }
 

@@ -198,6 +198,10 @@ void add_at_end(list *sentinel, entry *to_be_added)
 int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
+	if (!sentinel->first) {
+		return NOT_FOUND;
+	}
+
 	entry *proxy = sentinel->first;
 
 	do {
@@ -215,6 +219,10 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 				int (*compare_func)(const ENTRY_TYPE a,
 						    const ENTRY_TYPE b))
 {
+	if (!sentinel->first) {
+		return NULL;
+	}
+
 	entry *proxy = sentinel->first;
 
 	do {

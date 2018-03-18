@@ -244,6 +244,7 @@ void find(list **hashtable, int hash_size, char *word, char *file_name)
 		fprintf(result_file, "%s\n", "False");
 	}
 
+	fflush(result_file);
 	if (result_file != stdout)
 		fclose(result_file);
 }
@@ -272,6 +273,7 @@ int print_bucket(list **hashtable, int hash_size, char *index,
 
 	print_list_in_file(hashtable[idx], result_file);
 
+	fflush(result_file);
 	if (result_file != stdout)
 		fclose(result_file);
 
@@ -292,6 +294,7 @@ void print(list **hashtable, int hash_size, char *file_name)
 
 	print_hash_in_file(hashtable, hash_size, result_file);
 
+	fflush(result_file);
 	if (result_file != stdout)
 		fclose(result_file);
 }

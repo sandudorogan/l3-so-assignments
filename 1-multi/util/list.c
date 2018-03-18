@@ -58,8 +58,7 @@ int add_in_list(list *sentinel, ENTRY_TYPE elem)
 }
 
 int add_no_dup(list *sentinel, ENTRY_TYPE elem,
-	       const int (*compare_func)(const ENTRY_TYPE a,
-					 const ENTRY_TYPE b))
+	       int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
 	entry *proxy;
 	entry *buf = calloc(1, sizeof(entry));
@@ -98,8 +97,8 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 }
 
 int remove_from_list(list *sentinel, ENTRY_TYPE elem,
-		     const int (*compare_func)(const ENTRY_TYPE a,
-					       const ENTRY_TYPE b))
+		     int (*compare_func)(const ENTRY_TYPE a,
+					 const ENTRY_TYPE b))
 {
 	entry *to_be_deleted;
 
@@ -197,8 +196,7 @@ void add_at_end(list *sentinel, entry *to_be_added)
 }
 
 int find_in_list(const list *sentinel, ENTRY_TYPE elem,
-		 const int (*compare_func)(const ENTRY_TYPE a,
-					   const ENTRY_TYPE b))
+		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
 	entry *proxy = sentinel->first;
 
@@ -214,8 +212,8 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 }
 
 entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
-				const int (*compare_func)(const ENTRY_TYPE a,
-							  const ENTRY_TYPE b))
+				int (*compare_func)(const ENTRY_TYPE a,
+						    const ENTRY_TYPE b))
 {
 	entry *proxy = sentinel->first;
 

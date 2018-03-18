@@ -22,15 +22,14 @@ void append_in_hash(list **hashtable, int hash_size, entry *to_be_added);
  *
  */
 int remove_from_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
-		     const int (*compare_func)(const ENTRY_TYPE a,
-					       const ENTRY_TYPE b));
+		     int (*compare_func)(const ENTRY_TYPE a,
+					 const ENTRY_TYPE b));
 
 /**
  *
  */
 int find_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
-		 const int (*compare_func)(const ENTRY_TYPE a,
-					   const ENTRY_TYPE b));
+		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b));
 
 /**
  *

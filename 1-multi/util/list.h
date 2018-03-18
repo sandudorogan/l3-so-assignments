@@ -43,8 +43,7 @@ int add_in_list(list *sentinel, ENTRY_TYPE elem);
  *
  */
 int add_no_dup(list *sentinel, ENTRY_TYPE elem,
-	       const int (*compare_func)(const ENTRY_TYPE a,
-					 const ENTRY_TYPE b));
+	       int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b));
 
 /**
  * @sentinel 	 - pointer to the sentinel.
@@ -54,8 +53,7 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
  * @return 	 - the values for @FOUND and @NOT_FOUND
  */
 int find_in_list(const list *sentinel, ENTRY_TYPE elem,
-		 const int (*compare_func)(const ENTRY_TYPE a,
-					   const ENTRY_TYPE b));
+		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b));
 
 /**
  * @sentinel 	 - pointer to the sentinel.
@@ -66,8 +64,8 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
  *	or a null pointer
  */
 entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
-				const int (*compare_func)(const ENTRY_TYPE a,
-							  const ENTRY_TYPE b));
+				int (*compare_func)(const ENTRY_TYPE a,
+						    const ENTRY_TYPE b));
 /**
  * Removes an @elem containing box from the list.
  *
@@ -75,8 +73,8 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
  * @SUCCESS_CODE in case the operation was successful.
  */
 int remove_from_list(list *sentinel, ENTRY_TYPE elem,
-		     const int (*compare_func)(const ENTRY_TYPE a,
-					       const ENTRY_TYPE b));
+		     int (*compare_func)(const ENTRY_TYPE a,
+					 const ENTRY_TYPE b));
 
 /**
  * Deletes the links to last element from the list and returns it.

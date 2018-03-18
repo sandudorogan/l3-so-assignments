@@ -31,7 +31,7 @@ void find(list **hashtable, int hash_size, char *frst_arg, char *scnd_arg);
 int print_bucket(list **hashtable, int hash_size, char *index,
 		 char *file_name);
 void print(list **hashtable, int hash_size, char *file_name);
-void resize(list ***hashtable, int hash_size, int how);
+void resize(list ***hashtable, int *hash_size, int how);
 
 
 int main(int argc, char const *argv[])
@@ -145,11 +145,11 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 			break;
 
 		case RESIZE_DOUBLE:
-			resize(hashtable, hash_size, RESIZE_DOUBLE);
+			resize(hashtable, &hash_size, RESIZE_DOUBLE);
 			break;
 
 		case RESIZE_HALVE:
-			resize(hashtable, hash_size, RESIZE_HALVE);
+			resize(hashtable, &hash_size, RESIZE_HALVE);
 			break;
 		}
 	}
@@ -296,7 +296,7 @@ void print(list **hashtable, int hash_size, char *file_name)
 		fclose(result_file);
 }
 
-void resize(list ***hashtable, int old_size, int how)
+void resize(list ***hashtable, int *old_size, int how)
 {
 	int idx;
 	int new_size;
@@ -308,21 +308,22 @@ void resize(list ***hashtable, int old_size, int how)
 
 	old_hash = *hashtable;
 	if (how == RESIZE_DOUBLE) {
-		new_size = old_size * 2;
+		new_size = *old_size * 2;
 	} else {
-		new_size = old_size / 2;
+		new_size = *old_size / 2;
 	}
 
 
 	ed = init_hashtable(hashtable, new_size);
 	DIE(ed == ERROR_CODE, "Could not init the new hashtable");
 
-	for (idx = 0; idx < old_size; idx++) {
+	for (idx = 0; idx < *old_size; idx++) {
 		while (!is_empty_list(old_hash[idx])) {
 			proxy = take_first(old_hash[idx]);
 			append_in_hash(*hashtable, new_size, proxy);
 		}
 	}
 
-	free_hashtable(old_hash, old_size);
+	free_hashtable(old_hash, *old_size);
+	*old_size = new_size;
 }

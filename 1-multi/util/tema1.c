@@ -155,12 +155,15 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 
 		if (command) {
 			free(command);
+			command  = NULL;
 		}
 		if (frst_arg) {
 			free(frst_arg);
+			frst_arg = NULL;
 		}
 		if (scnd_arg) {
 			free(scnd_arg);
+			scnd_arg = NULL;
 		}
 	}
 

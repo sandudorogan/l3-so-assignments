@@ -80,7 +80,7 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 				return SUCCESS_CODE;
 			}
 			proxy = proxy->next;
-		} while (proxy->next);
+		} while (proxy);
 		/*
 		 * Because we know the last element, adding is just a matter
 		 * of linking.
@@ -206,7 +206,7 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 		}
 
 		proxy = proxy->next;
-	} while (proxy->next);
+	} while (proxy);
 
 	return NOT_FOUND;
 }
@@ -223,7 +223,7 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 		}
 
 		proxy = proxy->next;
-	} while (proxy->next);
+	} while (proxy);
 
 	return NULL;
 }
@@ -245,7 +245,7 @@ void empty_list(list *sentinel)
 		}
 		// Go to the next.
 		proxy = proxy->next;
-	} while (proxy->next);
+	} while (proxy);
 	// Free the last one.
 	free(proxy);
 
@@ -274,7 +274,7 @@ void print_as_string(const list *sentinel)
 		printf("%s ", proxy->elem);
 
 		proxy = proxy->next;
-	} while (proxy->next);
+	} while (proxy);
 	printf("\n");
 
 	fflush(stdout);
@@ -294,7 +294,7 @@ void print_list_in_file(const list *sentinel, FILE *print_file)
 		fprintf(print_file, "%s ", proxy->elem);
 
 		proxy = proxy->next;
-	} while (proxy->next);
+	} while (proxy);
 	fprintf(print_file, "\n");
 
 	fflush(print_file);

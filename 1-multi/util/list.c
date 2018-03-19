@@ -67,11 +67,12 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 		return ERROR_CODE;
 	}
 
+
 	buf->elem = elem;
 
-	if (sentinel->first == NULL) {
+	if (!sentinel->first) {
+		sentinel->last  = buf;
 		sentinel->first = buf;
-		sentinel->last = buf;
 	} else {
 		proxy = sentinel->first;
 
@@ -93,7 +94,6 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 	}
 
 	return SUCCESS_CODE;
-	
 }
 
 int remove_from_list(list *sentinel, ENTRY_TYPE elem,

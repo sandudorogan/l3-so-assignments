@@ -6,7 +6,7 @@
 #include "list.h"
 #include "utils.h"
 
-int init_hashtable(list ***hashtable, const int size)
+int init_hashtable(list ***hashtable, const unsigned int size)
 {
 	int i;
 	int er;
@@ -29,18 +29,19 @@ int init_hashtable(list ***hashtable, const int size)
 	return SUCCESS_CODE;
 }
 
-void free_hashtable(list **hashtable, const int size)
+void free_hashtable(list **hashtable, const unsigned int size)
 {
 	int i;
 
 	for (i = 0; i < size; ++i) {
-		free_list(hashtable[i]);
+		empty_list(hashtable[i]);
+		free(hashtable[i]);
 	}
 
 	free(hashtable);
 }
 
-int add_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry)
+int add_in_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry)
 {
 	int word_pos;
 
@@ -48,7 +49,8 @@ int add_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry)
 	return add_no_dup(hashtable[word_pos], entry, &strcmp);
 }
 
-void append_in_hash(list **hashtable, int hash_size, entry *to_be_added)
+void append_in_hash(list **hashtable, unsigned int hash_size,
+		    entry *to_be_added)
 {
 	int word_pos;
 
@@ -56,7 +58,7 @@ void append_in_hash(list **hashtable, int hash_size, entry *to_be_added)
 	add_at_end(hashtable[word_pos], to_be_added);
 }
 
-int remove_from_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
+int remove_from_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry,
 		     int (*compare_func)(const ENTRY_TYPE a,
 					 const ENTRY_TYPE b))
 {
@@ -66,7 +68,7 @@ int remove_from_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
 	return remove_from_list(hashtable[word_pos], entry, compare_func);
 }
 
-int find_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
+int find_in_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry,
 		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
 	int word_pos;
@@ -75,7 +77,7 @@ int find_in_hash(list **hashtable, int hash_size, ENTRY_TYPE entry,
 	return find_in_list(hashtable[word_pos], entry, &strcmp);
 }
 
-void empty_hashtable(list **hashtable, int hash_size)
+void empty_hashtable(list **hashtable, unsigned int hash_size)
 {
 	int idx;
 
@@ -84,7 +86,7 @@ void empty_hashtable(list **hashtable, int hash_size)
 	}
 }
 
-void print_hash_in_file(list **hashtable, int hash_size, FILE *file)
+void print_hash_in_file(list **hashtable, unsigned int hash_size, FILE *file)
 {
 	int idx;
 

@@ -26,12 +26,14 @@
 
 int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg);
 int parse_command(char *command, char *frst_arg);
-int execute_command(list ***hashtable, int hash_size, char *file_line);
-void find(list **hashtable, int hash_size, char *frst_arg, char *scnd_arg);
-int print_bucket(list **hashtable, int hash_size, char *index,
+int execute_command(list ***hashtable, unsigned int *hash_size,
+		    char *file_line);
+void find(list **hashtable, unsigned int hash_size, char *frst_arg,
+	  char *scnd_arg);
+int print_bucket(list **hashtable, unsigned int hash_size, char *index,
 		 char *file_name);
-void print(list **hashtable, int hash_size, char *file_name);
-void resize(list ***hashtable, int *hash_size, int how);
+void print(list **hashtable, unsigned int hash_size, char *file_name);
+void resize(list ***hashtable, unsigned int *hash_size, int how);
 
 
 int main(int argc, char const *argv[])
@@ -78,6 +80,7 @@ int main(int argc, char const *argv[])
 			DIE(1, "Somethings wrong with the given command");
 		}
 
+		// TODO: De rezolvat dubla printare.
 	} while (freopen(argv[++command_file], "r", stdin) != NULL);
 
 	free_hashtable(hashtable, hash_size);
@@ -86,13 +89,13 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 
-int execute_command(list ***hashtable, int hash_size, char *file_line) 
+int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line)
 {
 	int command_id;
 
 	size_t line_size = MAX_LINE_SIZE;
 
-	char *command  = NULL;
+	char *command = NULL;
 	char *frst_arg = NULL;
 	char *scnd_arg = NULL;
 
@@ -114,27 +117,28 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 
 		switch (command_id) {
 		case ADD:
-			ed = add_in_hash(*hashtable, hash_size, frst_arg);
+			ed = add_in_hash(*hashtable, *hash_size,
+					 strdup(frst_arg));
 			if (ed == ERROR_CODE) {
 				return ERROR_CODE;
 			}
 			break;
 
 		case REMOVE:
-			remove_from_hash(*hashtable, hash_size, frst_arg,
+			remove_from_hash(*hashtable, *hash_size, frst_arg,
 					 &strcmp);
 			break;
 
 		case FIND:
-			find(*hashtable, hash_size, frst_arg, scnd_arg);
+			find(*hashtable, *hash_size, frst_arg, scnd_arg);
 			break;
 
 		case CLEAR:
-			empty_hashtable(*hashtable, hash_size);
+			empty_hashtable(*hashtable, *hash_size);
 			break;
 
 		case PRINT_BUCKET:
-			ed = print_bucket(*hashtable, hash_size, frst_arg,
+			ed = print_bucket(*hashtable, *hash_size, frst_arg,
 					  scnd_arg);
 			if (ed == ERROR_CODE) {
 				return ERROR_CODE;
@@ -142,21 +146,21 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 			break;
 
 		case PRINT:
-			print(*hashtable, hash_size, frst_arg);
+			print(*hashtable, *hash_size, frst_arg);
 			break;
 
 		case RESIZE_DOUBLE:
-			resize(hashtable, &hash_size, RESIZE_DOUBLE);
+			resize(hashtable, hash_size, RESIZE_DOUBLE);
 			break;
 
 		case RESIZE_HALVE:
-			resize(hashtable, &hash_size, RESIZE_HALVE);
+			resize(hashtable, hash_size, RESIZE_HALVE);
 			break;
 		}
 
 		if (command) {
 			free(command);
-			command  = NULL;
+			command = NULL;
 		}
 		if (frst_arg) {
 			free(frst_arg);
@@ -237,7 +241,7 @@ int parse_command(char *command, char *frst_arg)
 	return ERROR_CODE;
 }
 
-void find(list **hashtable, int hash_size, char *word, char *file_name)
+void find(list **hashtable, unsigned int hash_size, char *word, char *file_name)
 {
 	FILE *result_file;
 	int ed;
@@ -250,8 +254,7 @@ void find(list **hashtable, int hash_size, char *word, char *file_name)
 	}
 
 
-	ed = find_in_hash(hashtable, hash_size, word,
-			  &strcmp);
+	ed = find_in_hash(hashtable, hash_size, word, &strcmp);
 	if (ed == FOUND) {
 		fprintf(result_file, "%s\n", "True");
 	} else {
@@ -263,7 +266,7 @@ void find(list **hashtable, int hash_size, char *word, char *file_name)
 		fclose(result_file);
 }
 
-int print_bucket(list **hashtable, int hash_size, char *index,
+int print_bucket(list **hashtable, unsigned int hash_size, char *index,
 		 char *file_name)
 {
 	FILE *result_file;
@@ -287,7 +290,6 @@ int print_bucket(list **hashtable, int hash_size, char *index,
 
 	print_list_in_file(hashtable[idx], result_file);
 
-	fflush(result_file);
 	if (result_file != stdout)
 		fclose(result_file);
 
@@ -295,7 +297,7 @@ int print_bucket(list **hashtable, int hash_size, char *index,
 	return SUCCESS_CODE;
 }
 
-void print(list **hashtable, int hash_size, char *file_name) 
+void print(list **hashtable, unsigned int hash_size, char *file_name)
 {
 	FILE *result_file;
 
@@ -308,12 +310,11 @@ void print(list **hashtable, int hash_size, char *file_name)
 
 	print_hash_in_file(hashtable, hash_size, result_file);
 
-	fflush(result_file);
 	if (result_file != stdout)
 		fclose(result_file);
 }
 
-void resize(list ***hashtable, int *old_size, int how)
+void resize(list ***hashtable, unsigned int *old_size, int how)
 {
 	int idx;
 	int new_size;

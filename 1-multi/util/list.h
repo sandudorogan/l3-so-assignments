@@ -32,7 +32,7 @@ void free_elem(ENTRY_TYPE elem);
 /**
  * Return 1 if the list is empty, 0 otherwise.
  */
-int is_empty_list(list *sentinel);
+int is_empty_list(const list *sentinel);
 
 /**
  *

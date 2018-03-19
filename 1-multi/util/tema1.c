@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
 	}
 
 	do {
-		ed = execute_command(&hashtable, hash_size, file_line);
+		ed = execute_command(&hashtable, &hash_size, file_line);
 
 		if (ed == ERROR_CODE) {
 			free_hashtable(hashtable, hash_size);
@@ -95,7 +95,7 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line)
 
 	size_t line_size = MAX_LINE_SIZE;
 
-	char *command = NULL;
+	char *command  = NULL;
 	char *frst_arg = NULL;
 	char *scnd_arg = NULL;
 
@@ -160,7 +160,7 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line)
 
 		if (command) {
 			free(command);
-			command = NULL;
+			command  = NULL;
 		}
 		if (frst_arg) {
 			free(frst_arg);

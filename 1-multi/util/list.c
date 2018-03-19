@@ -24,7 +24,7 @@ int init_list(list **sentinel)
 	return SUCCESS_CODE;
 }
 
-int is_empty_list(list *sentinel) 
+int is_empty_list(const list *sentinel) 
 {
 	return !sentinel->first;
 }
@@ -39,7 +39,7 @@ int add_in_list(list *sentinel, ENTRY_TYPE elem)
 
 	buf->elem = elem;
 
-	if (sentinel->first == NULL) {
+	if (is_empty_list(sentinel)) {
 		sentinel->first = buf;
 		sentinel->last = buf;
 	} else {
@@ -70,7 +70,7 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 
 	buf->elem = elem;
 
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		sentinel->last  = buf;
 		sentinel->first = buf;
 	} else {
@@ -137,7 +137,7 @@ entry *take_last(list *sentinel)
 {
 	entry *proxy;
 
-	if (!sentinel->last) {
+	if (is_empty_list(sentinel)) {
 		return NULL;
 	}
 
@@ -162,7 +162,7 @@ entry *take_first(list *sentinel)
 {
 	entry *proxy;
 
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		return NULL;
 	}
 
@@ -181,7 +181,7 @@ entry *take_first(list *sentinel)
 
 void add_at_end(list *sentinel, entry *to_be_added)
 {
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		sentinel->first = to_be_added;
 	}
 
@@ -198,7 +198,7 @@ void add_at_end(list *sentinel, entry *to_be_added)
 int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		return NOT_FOUND;
 	}
 
@@ -219,7 +219,7 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 				int (*compare_func)(const ENTRY_TYPE a,
 						    const ENTRY_TYPE b))
 {
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		return NULL;
 	}
 
@@ -227,13 +227,13 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 
 	do {
 		if (!(*compare_func)(proxy->elem, elem)) {
-			return proxy;
+			break;
 		}
 
 		proxy = proxy->next;
 	} while (proxy);
 
-	return NULL;
+	return proxy;
 }
 
 void empty_list(list *sentinel)
@@ -245,7 +245,7 @@ void empty_list(list *sentinel)
 	entry *proxy = sentinel->first;
 
 	// Go to the last.
-	do {
+	while (proxy->next) {
 		// Free the previous.
 		if (proxy->prev) {
 			free_elem(proxy->prev->elem);
@@ -253,9 +253,9 @@ void empty_list(list *sentinel)
 		}
 		// Go to the next.
 		proxy = proxy->next;
-	} while (proxy);
+	}
 	// Free the last one.
-	free_elem(proxy->prev->elem);
+	free_elem(proxy->elem);
 	free(proxy);
 
 	sentinel->first = NULL;

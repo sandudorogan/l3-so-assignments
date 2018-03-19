@@ -100,6 +100,7 @@ int execute_command(list ***hashtable, int hash_size, char *file_line)
 
 
 	while (!feof(stdin)) {
+		memset(file_line, '\0', line_size);
 		ed = getline(&file_line, &line_size, stdin);
 		DIE(ed == -1, "Input failure");
 		// ed = fscanf(stdin, "%s", file_line);
@@ -187,7 +188,7 @@ int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg)
 
 	token = strtok(NULL, delim);
 	if (token == NULL)
-		return 0;
+		return SUCCESS_CODE;
 
 	*frst_arg = strdup(token);
 	if (*frst_arg == NULL)
@@ -195,13 +196,13 @@ int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg)
 
 	token = strtok(NULL, delim);
 	if (token == NULL)
-		return 0;
+		return SUCCESS_CODE;
 
 	*scnd_arg = strdup(token);
 	if (*scnd_arg == NULL)
 		return ERROR_CODE;
 
-	return 0;
+	return SUCCESS_CODE;
 }
 
 int parse_command(char *command, char *frst_arg)

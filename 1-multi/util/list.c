@@ -107,6 +107,7 @@ int remove_from_list(list *sentinel, ENTRY_TYPE elem,
 		return NOT_FOUND;
 	}
 
+	// Update the links
 	if (to_be_deleted->prev) {
 		to_be_deleted->prev->next = to_be_deleted->next;
 	}
@@ -124,10 +125,12 @@ int remove_from_list(list *sentinel, ENTRY_TYPE elem,
 	if (sentinel->last == to_be_deleted) {
 		sentinel->last =
 			to_be_deleted->prev ? to_be_deleted->prev : NULL;
-		if (sentinel->last) {
+		if (sentinel->last)
 			sentinel->last->next = NULL;
-		}
 	}
+
+	// Delete the found element.
+	free_elem(to_be_deleted->elem);
 	free(to_be_deleted);
 
 	return SUCCESS_CODE;

@@ -27,7 +27,7 @@
 int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg);
 int parse_command(char *command, char *frst_arg);
 int execute_command(list ***hashtable, unsigned int *hash_size,
-		    char *file_line);
+		    char *file_line, FILE *read_from);
 void find(list **hashtable, unsigned int hash_size, char *frst_arg,
 	  char *scnd_arg);
 int print_bucket(list **hashtable, unsigned int hash_size, char *index,
@@ -38,6 +38,8 @@ void resize(list ***hashtable, unsigned int *hash_size, int how);
 
 int main(int argc, char const *argv[])
 {
+	FILE *read_from;
+
 	char *file_line;
 	size_t line_size = MAX_LINE_SIZE;
 
@@ -68,11 +70,15 @@ int main(int argc, char const *argv[])
 	// If not, it'll take the info from stdout.
 	// It ignores the first file in the processing loop.
 	if (argc > ARGUMENTS_NEEDED) {
-		freopen(argv[command_file], "r", stdin);
+		read_from = fopen(argv[command_file], "r");
+		// freopen(argv[command_file], "r", stdin);
+	} else {
+		read_from = stdin;
 	}
 
 	do {
-		ed = execute_command(&hashtable, &hash_size, file_line);
+		ed = execute_command(&hashtable, &hash_size, file_line,
+				     read_from);
 
 		if (ed == ERROR_CODE) {
 			free_hashtable(hashtable, hash_size);
@@ -81,7 +87,8 @@ int main(int argc, char const *argv[])
 		}
 
 		// TODO: De rezolvat dubla printare.
-	} while (freopen(argv[++command_file], "r", stdin) != NULL);
+	} while ((read_from = fopen(argv[++command_file], "r")));
+	// } while (freopen(argv[++command_file], "r", stdin));
 
 	free_hashtable(hashtable, hash_size);
 	free(file_line);
@@ -89,7 +96,8 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 
-int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line)
+int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
+		    FILE *read_from)
 {
 	int command_id;
 
@@ -102,11 +110,11 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line)
 	int ed;
 
 
-	while (!feof(stdin)) {
+	while (!feof(read_from)) {
 		memset(file_line, '\0', line_size);
-		ed = getline(&file_line, &line_size, stdin);
+		ed = getline(&file_line, &line_size, read_from);
 		DIE(ed == -1, "Input failure");
-		// ed = fscanf(stdin, "%s", file_line);
+		// ed = fscanf(read_from, "%s", file_line);
 
 		parse_line(file_line, &command, &frst_arg, &scnd_arg);
 

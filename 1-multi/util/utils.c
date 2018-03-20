@@ -27,3 +27,4 @@ int is_number(const char *s)
 
 	return 1;
 }
+

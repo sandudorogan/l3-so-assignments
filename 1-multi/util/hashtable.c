@@ -10,18 +10,18 @@ int init_hashtable(list ***hashtable, const unsigned int size)
 {
 	int i;
 	int er;
+	list *sentinel;
 
 	*hashtable = malloc(size * sizeof(list));
-	if (!*hashtable) {
+
+	if (!*hashtable)
 		return ERROR_CODE;
-	}
 
 	for (i = 0; i < size; ++i) {
-		list *sentinel;
 		er = init_list(&sentinel);
-		if (er == ERROR_CODE) {
+
+		if (er == ERROR_CODE)
 			return ERROR_CODE;
-		}
 
 		(*hashtable)[i] = sentinel;
 	}
@@ -66,6 +66,7 @@ int remove_from_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry,
 	int word_pos;
 
 	word_pos = hash(entry, hash_size);
+
 	return remove_from_list(hashtable[word_pos], entry, compare_func);
 }
 
@@ -75,6 +76,7 @@ int find_in_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry,
 	int word_pos;
 
 	word_pos = hash(entry, hash_size);
+
 	return find_in_list(hashtable[word_pos], entry, &strcmp);
 }
 
@@ -82,16 +84,14 @@ void empty_hashtable(list **hashtable, unsigned int hash_size)
 {
 	int idx;
 
-	for (idx = 0; idx < hash_size; idx++) {
+	for (idx = 0; idx < hash_size; idx++)
 		empty_list(hashtable[idx]);
-	}
 }
 
 void print_hash_in_file(list **hashtable, unsigned int hash_size, FILE *file)
 {
 	int idx;
 
-	for (idx = 0; idx < hash_size; idx++) {
+	for (idx = 0; idx < hash_size; idx++)
 		print_list_in_file(hashtable[idx], file);
-	}
 }

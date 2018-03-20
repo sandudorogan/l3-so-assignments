@@ -6,7 +6,6 @@
 
 #include "list.h"
 #include "utils.h"
-#include "stdbool.h"
 #include "hashtable.h"
 
 #define HASH_SIZE_IDX 1
@@ -26,8 +25,8 @@
 
 int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg);
 int parse_command(char *command, char *frst_arg);
-int execute_command(list ***hashtable, unsigned int *hash_size,
-		    char *file_line, FILE *read_from);
+int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
+		    FILE *read_from);
 void find(list **hashtable, unsigned int hash_size, char *frst_arg,
 	  char *scnd_arg);
 int print_bucket(list **hashtable, unsigned int hash_size, char *index,
@@ -90,7 +89,7 @@ int main(int argc, char const *argv[])
 	} while ((read_from = fopen(argv[++command_file], "r")));
 
 	if (argv[command_file]) {
-		// If there is a file name but no file pointer, 
+		// If there is a file name but no file pointer,
 		// we have a problem.
 		DIE(1, "The file does not exist");
 	}
@@ -108,8 +107,8 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 
 	size_t line_size = MAX_LINE_SIZE;
 
-	char *buf      = NULL;
-	char *command  = NULL;
+	char *buf = NULL;
+	char *command = NULL;
 	char *frst_arg = NULL;
 	char *scnd_arg = NULL;
 
@@ -124,9 +123,8 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 		parse_line(file_line, &command, &frst_arg, &scnd_arg);
 
 		command_id = parse_command(command, frst_arg);
-		if (command_id == ERROR_CODE) {
+		if (command_id == ERROR_CODE)
 			return ERROR_CODE;
-		}
 
 		switch (command_id) {
 		case ADD:
@@ -134,12 +132,12 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 			DIE(!buf, "No memory");
 
 			ed = add_in_hash(*hashtable, *hash_size, buf);
-			
-			if (ed == FOUND) {
+
+			if (ed == FOUND)
 				free(buf);
-			}else if (ed == ERROR_CODE) {
+			else if (ed == ERROR_CODE)
 				return ERROR_CODE;
-			}
+
 			break;
 
 		case REMOVE:
@@ -158,9 +156,9 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 		case PRINT_BUCKET:
 			ed = print_bucket(*hashtable, *hash_size, frst_arg,
 					  scnd_arg);
-			if (ed == ERROR_CODE) {
+			if (ed == ERROR_CODE)
 				return ERROR_CODE;
-			}
+
 			break;
 
 		case PRINT:
@@ -178,7 +176,7 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 
 		if (command) {
 			free(command);
-			command  = NULL;
+			command = NULL;
 		}
 		if (frst_arg) {
 			free(frst_arg);
@@ -229,31 +227,30 @@ int parse_line(char *line, char **command, char **frst_arg, char **scnd_arg)
 
 int parse_command(char *command, char *frst_arg)
 {
-	if (!strncmp(command, "add", strlen("add"))) {
+	if (!strncmp(command, "add", strlen("add")))
 		return ADD;
-	}
-	if (!strncmp(command, "remove", strlen("remove"))) {
+
+	if (!strncmp(command, "remove", strlen("remove")))
 		return REMOVE;
-	}
-	if (!strncmp(command, "find", strlen("find"))) {
+
+	if (!strncmp(command, "find", strlen("find")))
 		return FIND;
-	}
-	if (!strncmp(command, "clear", strlen("clear"))) {
+
+	if (!strncmp(command, "clear", strlen("clear")))
 		return CLEAR;
-	}
-	if (!strncmp(command, "print_bucket", strlen("print_bucket"))) {
+
+	if (!strncmp(command, "print_bucket", strlen("print_bucket")))
 		return PRINT_BUCKET;
-	}
-	if (!strncmp(command, "print", strlen("print"))) {
+
+	if (!strncmp(command, "print", strlen("print")))
 		return PRINT;
-	}
+
 	if (!strncmp(command, "resize", strlen("resize"))) {
-		if (!strncmp(frst_arg, "double", strlen("double"))) {
+		if (!strncmp(frst_arg, "double", strlen("double")))
 			return RESIZE_DOUBLE;
-		}
-		if (!strncmp(frst_arg, "halve", strlen("halve"))) {
+
+		if (!strncmp(frst_arg, "halve", strlen("halve")))
 			return RESIZE_HALVE;
-		}
 	}
 
 	return ERROR_CODE;
@@ -273,11 +270,11 @@ void find(list **hashtable, unsigned int hash_size, char *word, char *file_name)
 
 
 	ed = find_in_hash(hashtable, hash_size, word, &strcmp);
-	if (ed == FOUND) {
+	if (ed == FOUND)
 		fprintf(result_file, "%s\n", "True");
-	} else {
+	else
 		fprintf(result_file, "%s\n", "False");
-	}
+
 
 	fflush(result_file);
 	if (result_file != stdout)
@@ -291,13 +288,13 @@ int print_bucket(list **hashtable, unsigned int hash_size, char *index,
 	int idx;
 
 
-	if (!is_number(index)) {
+	if (!is_number(index))
 		return ERROR_CODE;
-	}
+
 	idx = atoi(index);
-	if (idx < 0 || idx >= hash_size) {
+
+	if (idx < 0 || idx >= hash_size)
 		return ERROR_CODE;
-	}
 
 
 	result_file = stdout;
@@ -343,11 +340,10 @@ void resize(list ***hashtable, unsigned int *old_size, int how)
 
 
 	old_hash = *hashtable;
-	if (how == RESIZE_DOUBLE) {
+	if (how == RESIZE_DOUBLE)
 		new_size = *old_size * 2;
-	} else {
+	else
 		new_size = *old_size / 2;
-	}
 
 
 	ed = init_hashtable(hashtable, new_size);

@@ -117,8 +117,7 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 
 	while (!feof(read_from)) {
 		memset(file_line, '\0', line_size);
-		ed = getline(&file_line, &line_size, read_from);
-		DIE(ed == -1, "Input failure");
+		getline(&file_line, &line_size, read_from);
 
 		if (is_line_blank(file_line))
 			continue;

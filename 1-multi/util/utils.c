@@ -35,9 +35,9 @@ int is_line_blank(const char *line)
 	char *buffer = strdup(line);
 
 	if (!strtok(buffer, delim))
-		return_value = 0;
-	else
 		return_value = 1;
+	else
+		return_value = 0;
 
 	free(buffer);
 	return return_value;

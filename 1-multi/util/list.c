@@ -78,7 +78,7 @@ int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 
 		do {
 			if (!(*compare_func)(proxy->elem, elem)) {
-				return SUCCESS_CODE;
+				return FOUND;
 			}
 			proxy = proxy->next;
 		} while (proxy);
@@ -276,7 +276,7 @@ void free_list(list *sentinel)
 void print_as_string(const list *sentinel)
 {
 	// See if there are things to print.
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		return;
 	}
 
@@ -296,7 +296,7 @@ void print_as_string(const list *sentinel)
 void print_list_in_file(const list *sentinel, FILE *print_file)
 {
 	// See if there are things to print.
-	if (!sentinel->first) {
+	if (is_empty_list(sentinel)) {
 		return;
 	}
 

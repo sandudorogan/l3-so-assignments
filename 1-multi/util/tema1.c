@@ -38,7 +38,7 @@ void resize(list ***hashtable, unsigned int *hash_size, int how);
 
 int main(int argc, char const *argv[])
 {
-	FILE *read_from;
+	FILE *read_from = NULL;
 
 	char *file_line;
 	size_t line_size = MAX_LINE_SIZE;
@@ -71,7 +71,7 @@ int main(int argc, char const *argv[])
 	// It ignores the first file in the processing loop.
 	if (argc > ARGUMENTS_NEEDED) {
 		read_from = fopen(argv[command_file], "r");
-		// freopen(argv[command_file], "r", stdin);
+		DIE(!read_from, "The file does not exist");
 	} else {
 		read_from = stdin;
 	}
@@ -86,9 +86,14 @@ int main(int argc, char const *argv[])
 			DIE(1, "Somethings wrong with the given command");
 		}
 
-		// TODO: De rezolvat dubla printare.
+		fclose(read_from);
 	} while ((read_from = fopen(argv[++command_file], "r")));
-	// } while (freopen(argv[++command_file], "r", stdin));
+
+	if (argv[command_file]) {
+		// If there is a file name but no file pointer, 
+		// we have a problem.
+		DIE(1, "The file does not exist");
+	}
 
 	free_hashtable(hashtable, hash_size);
 	free(file_line);
@@ -114,7 +119,6 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 		memset(file_line, '\0', line_size);
 		ed = getline(&file_line, &line_size, read_from);
 		DIE(ed == -1, "Input failure");
-		// ed = fscanf(read_from, "%s", file_line);
 
 		parse_line(file_line, &command, &frst_arg, &scnd_arg);
 

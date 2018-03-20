@@ -43,17 +43,11 @@ void free_hashtable(list **hashtable, const unsigned int size)
 
 int add_in_hash(list **hashtable, unsigned int hash_size, ENTRY_TYPE entry)
 {
-	int ed;
 	int word_pos;
 
 	word_pos = hash(entry, hash_size);
-	
-	ed = add_no_dup(hashtable[word_pos], entry, &strcmp);
-	if (ed == FOUND) {
-		free_elem(entry);
-	}
 
-	return ed;
+	return add_no_dup(hashtable[word_pos], entry, &strcmp);
 }
 
 void append_in_hash(list **hashtable, unsigned int hash_size,

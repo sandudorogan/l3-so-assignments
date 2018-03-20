@@ -108,6 +108,7 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 
 	size_t line_size = MAX_LINE_SIZE;
 
+	char *buf      = NULL;
 	char *command  = NULL;
 	char *frst_arg = NULL;
 	char *scnd_arg = NULL;
@@ -129,9 +130,14 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 
 		switch (command_id) {
 		case ADD:
-			ed = add_in_hash(*hashtable, *hash_size,
-					 strdup(frst_arg));
-			if (ed == ERROR_CODE) {
+			buf = strdup(frst_arg);
+			DIE(!buf, "No memory");
+
+			ed = add_in_hash(*hashtable, *hash_size, buf);
+			
+			if (ed == FOUND) {
+				free(buf);
+			}else if (ed == ERROR_CODE) {
 				return ERROR_CODE;
 			}
 			break;

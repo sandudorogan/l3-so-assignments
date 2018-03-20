@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DLL_IMPORTS
+
 #include "hash.h"
 #include "list.h"
 #include "utils.h"

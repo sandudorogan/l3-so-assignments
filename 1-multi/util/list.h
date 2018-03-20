@@ -15,8 +15,8 @@ typedef struct entry {
 
 
 typedef struct list {
-	entry *first;
-	entry *last;
+	struct entry *first;
+	struct entry *last;
 } list;
 
 /*
@@ -60,10 +60,10 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
  * @elem         - elem to be found.
  * @compare_func - a function to compare the @elem and the entries in the list.
  *      It's return value is treated as strcmp's.
- * @return       - a pointer to the entry in case it found the @elem,
+ * @return       - a pointer to the struct entry in case it found the @elem,
  *      or a null pointer
  */
-entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
+struct entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 				int (*compare_func)(const ENTRY_TYPE a,
 						    const ENTRY_TYPE b));
 /*
@@ -81,20 +81,20 @@ int remove_from_list(list *sentinel, ENTRY_TYPE elem,
  *
  * Returns the last element of the given list.
  */
-entry *take_last(list *sentinel);
+struct entry *take_last(list *sentinel);
 
 /*
  * As @take_last.
  *
  * Returns the first element of the given list.
  */
-entry *take_first(list *sentinel);
+struct entry *take_first(list *sentinel);
 
 /*
- * Adds the @entry to the rightmost of the list, as the last element.
+ * Adds the @struct entry to the rightmost of the list, as the last element.
  * Takes care of the case when the list is empty.
  */
-void add_at_end(list *sentinel, entry *to_be_added);
+void add_at_end(list *sentinel, struct entry *to_be_added);
 
 /*
  * Calls free for all the entries in the list.

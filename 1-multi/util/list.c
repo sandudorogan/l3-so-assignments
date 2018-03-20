@@ -31,7 +31,7 @@ int is_empty_list(const list *sentinel)
 
 int add_in_list(list *sentinel, ENTRY_TYPE elem)
 {
-	entry *buf = calloc(1, sizeof(entry));
+	struct entry *buf = calloc(1, sizeof(struct entry));
 
 	if (buf == NULL)
 		return ERROR_CODE;
@@ -54,8 +54,8 @@ int add_in_list(list *sentinel, ENTRY_TYPE elem)
 int add_no_dup(list *sentinel, ENTRY_TYPE elem,
 	       int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
-	entry *proxy;
-	entry *buf = calloc(1, sizeof(entry));
+	struct entry *proxy;
+	struct entry *buf = calloc(1, sizeof(struct entry));
 
 	if (buf == NULL)
 		return ERROR_CODE;
@@ -89,7 +89,7 @@ int remove_from_list(list *sentinel, ENTRY_TYPE elem,
 		     int (*compare_func)(const ENTRY_TYPE a,
 					 const ENTRY_TYPE b))
 {
-	entry *to_be_deleted;
+	struct entry *to_be_deleted;
 
 	to_be_deleted = find_in_list_get_pointer(sentinel, elem, compare_func);
 	if (!to_be_deleted)
@@ -125,9 +125,9 @@ int remove_from_list(list *sentinel, ENTRY_TYPE elem,
 	return SUCCESS_CODE;
 }
 
-entry *take_last(list *sentinel)
+struct entry *take_last(list *sentinel)
 {
-	entry *proxy;
+	struct entry *proxy;
 
 	if (is_empty_list(sentinel))
 		return NULL;
@@ -145,9 +145,9 @@ entry *take_last(list *sentinel)
 	return proxy;
 }
 
-entry *take_first(list *sentinel)
+struct entry *take_first(list *sentinel)
 {
-	entry *proxy;
+	struct entry *proxy;
 
 	if (is_empty_list(sentinel))
 		return NULL;
@@ -165,7 +165,7 @@ entry *take_first(list *sentinel)
 	return proxy;
 }
 
-void add_at_end(list *sentinel, entry *to_be_added)
+void add_at_end(list *sentinel, struct entry *to_be_added)
 {
 	if (is_empty_list(sentinel))
 		sentinel->first = to_be_added;
@@ -183,10 +183,12 @@ void add_at_end(list *sentinel, entry *to_be_added)
 int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 		 int (*compare_func)(const ENTRY_TYPE a, const ENTRY_TYPE b))
 {
+	struct entry *proxy;
+
 	if (is_empty_list(sentinel))
 		return NOT_FOUND;
 
-	entry *proxy = sentinel->first;
+	proxy = sentinel->first;
 
 	do {
 		if (!(*compare_func)(proxy->elem, elem))
@@ -198,14 +200,16 @@ int find_in_list(const list *sentinel, ENTRY_TYPE elem,
 	return NOT_FOUND;
 }
 
-entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
+struct entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 				int (*compare_func)(const ENTRY_TYPE a,
 						    const ENTRY_TYPE b))
 {
+	struct entry *proxy;
+
 	if (is_empty_list(sentinel))
 		return NULL;
 
-	entry *proxy = sentinel->first;
+	proxy = sentinel->first;
 
 	do {
 		if (!(*compare_func)(proxy->elem, elem))
@@ -219,10 +223,12 @@ entry *find_in_list_get_pointer(const list *sentinel, ENTRY_TYPE elem,
 
 void empty_list(list *sentinel)
 {
+	struct entry *proxy;
+
 	if (is_empty_list(sentinel))
 		return;
 
-	entry *proxy = sentinel->first;
+	proxy = sentinel->first;
 
 	while (proxy->next) {
 		if (proxy->prev) {
@@ -247,10 +253,12 @@ void free_list(list *sentinel)
 
 void print_as_string(const list *sentinel)
 {
+	struct entry *proxy;
+
 	if (is_empty_list(sentinel))
 		return;
 
-	entry *proxy = sentinel->first;
+	proxy = sentinel->first;
 
 	do {
 		printf("%s ", proxy->elem);
@@ -264,10 +272,12 @@ void print_as_string(const list *sentinel)
 
 void print_list_in_file(const list *sentinel, FILE *print_file)
 {
+	struct entry *proxy;
+	
 	if (is_empty_list(sentinel))
 		return;
 
-	entry *proxy = sentinel->first;
+	proxy = sentinel->first;
 
 	do {
 		fprintf(print_file, "%s ", proxy->elem);

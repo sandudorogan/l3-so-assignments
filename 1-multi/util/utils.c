@@ -44,7 +44,7 @@ int is_line_blank(const char *line)
 	return return_value;
 }
 
-size_t getline(char **lineptr, size_t *n, FILE *stream)
+size_t my_getline(char **lineptr, size_t *n, FILE *stream)
 {
 	char *bufptr = NULL;
 	char *p = bufptr;

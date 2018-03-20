@@ -273,7 +273,7 @@ void print_as_string(const list *sentinel)
 void print_list_in_file(const list *sentinel, FILE *print_file)
 {
 	struct entry *proxy;
-	
+
 	if (is_empty_list(sentinel))
 		return;
 

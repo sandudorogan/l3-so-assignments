@@ -22,4 +22,6 @@ int is_number(const char *s);
 
 int is_line_blank(const char *line);
 
+size_t getline(char **lineptr, size_t *n, FILE *stream);
+
 #endif

@@ -264,7 +264,6 @@ void print_as_string(const list *sentinel)
 
 void print_list_in_file(const list *sentinel, FILE *print_file)
 {
-	// See if there are things to print.
 	if (is_empty_list(sentinel))
 		return;
 

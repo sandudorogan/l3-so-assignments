@@ -20,4 +20,6 @@ char *strdup(const char *string);
 
 int is_number(const char *s);
 
+int is_line_blank(const char *line);
+
 #endif

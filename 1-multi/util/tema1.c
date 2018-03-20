@@ -120,6 +120,9 @@ int execute_command(list ***hashtable, unsigned int *hash_size, char *file_line,
 		ed = getline(&file_line, &line_size, read_from);
 		DIE(ed == -1, "Input failure");
 
+		if (is_line_blank(file_line))
+			continue;
+
 		parse_line(file_line, &command, &frst_arg, &scnd_arg);
 
 		command_id = parse_command(command, frst_arg);

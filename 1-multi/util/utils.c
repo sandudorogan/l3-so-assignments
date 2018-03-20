@@ -28,3 +28,17 @@ int is_number(const char *s)
 	return 1;
 }
 
+int is_line_blank(const char *line)
+{
+	int return_value = 0;
+	char *delim = " \t\n";
+	char *buffer = strdup(line);
+
+	if (!strtok(buffer, delim))
+		return_value = 0;
+	else
+		return_value = 1;
+
+	free(buffer);
+	return return_value;
+}

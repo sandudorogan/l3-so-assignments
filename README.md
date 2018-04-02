@@ -41,7 +41,7 @@ The standard used is Linux Kernel.
 * **Sandu Dorogan** - *Solutions*
 
 ## License
-These projects are licensed under the [Creative Commons Attribution-ShareAlike] License.
+These projects are licensed under the [Creative Commons Attribution-ShareAlike](https://creativecommons.org/licenses/by-sa/3.0/) License.
 
 ## Aknowledgments 
 * Thanks to the SO team for the experience provided and for your overall work.

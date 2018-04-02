@@ -6,8 +6,8 @@ This repo is based on the [course's stuff's one](https://github.com/systems-cs-p
 Note: All the projects are made starting from the skeleton provided on this page.
 
 [Here](https://ocw.cs.pub.ro/courses/so) you can find the assignments with all the specifics and the constraints. 
+I'm attending a in Romanian curricula, hence, the assignment's text is in the Romanian.
 If otherwise specified in the homework's Readme file, the homework obedes all of the constraints. 
-Assignment's text is in the Romanian.
 
 ### Prerequisites
 All of the assignments are developed on either:

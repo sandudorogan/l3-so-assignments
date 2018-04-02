@@ -37,7 +37,7 @@ The checker uses the '''checkpatch''' script from [Linus Torvald's GitHub page.]
 The standard used is Linux Kernel.
 
 ## Authors
-* **SO Stuff** - *The skeleton* - [theirs GitHub](https://github.com/systems-cs-pub-ro/) [Team members](https://ocw.cs.pub.ro/courses/so)
+* **SO Stuff** - *The skeleton* - [theirs GitHub](https://github.com/systems-cs-pub-ro/). [Team members](https://ocw.cs.pub.ro/courses/so)
 * **Sandu Dorogan** - *Solutions*
 
 ## License

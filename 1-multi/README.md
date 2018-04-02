@@ -14,3 +14,5 @@ For the project to run, you absolutely have to make sure your platform has at le
 ### Installing
 See [root Readme file](../README.md).
 
+### Testing
+This project does not diverge from the [root's Readme file](../README.md) general rule.

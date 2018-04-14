@@ -9,6 +9,7 @@ Note: All the projects are made starting from the skeleton code, provided in the
 [Here](https://ocw.cs.pub.ro/courses/so) you can find the assignments texts, with all the specifics and the constraints. 
 I'm attending a in Romanian curricula, hence, the assignment's text language.
 If otherwise specified in the homework's Readme file, the homework obedes all of the constraints imposed. 
+</p>
 
 ### Prerequisites
 All of the assignments are developed on either:
@@ -30,6 +31,7 @@ If otherwise specified in the project Readme file, the tests can be obtained fro
 <p>
 For example, the checker for the ```1-multi``` project is in the ```~1-multi/checker/``` folder.
 For the checker to run, you should copy the executable file in the ```checker``` folder.
+</p>
 
 ### Break down
 Tests are made for every general functionality required. Also, they include a coding style check and a running time check.

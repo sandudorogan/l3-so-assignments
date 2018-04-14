@@ -20,22 +20,22 @@ or
 * Windows 7 Professional
   - Visual C++ Express 2010
   - cl.exe
-These are 32 bit systems. In some cases, like the '''1-multi''' project, you can't run it on a 64 bit system. It needs it's dynamic libraries, compiled on 32 bits systems.
+These are 32 bit systems. In some cases, like the ```1-multi``` project, you can't run it on a 64 bit system. It needs it's dynamic libraries, compiled on 32 bits systems.
 
 ### Installing
-Depending on the system you are on, and if the project supports it, project can be either compiled with the '''GNUmakefile''' on Linux, or '''Makefile''' on Windows. Just type ```make -f <Makefile_name>``` in the console.
+Depending on the system you are on, and if the project supports it, project can be either compiled with the ```GNUmakefile``` on Linux, or ```Makefile``` on Windows. Just type ```make -f <Makefile_name>``` in the console.
 
 ## Testing
-If otherwise specified in the project Readme file, the tests can be obtained from the [stuff's GitHub page](https://github.com/systems-cs-pub-ro/so-assignments). Every project has it's own specific stress tests. Obviously, you can't test a projects with an other one's checker. The tests are located in the '''checker''' folder of the project's name directory.
+If otherwise specified in the project Readme file, the tests can be obtained from the [stuff's GitHub page](https://github.com/systems-cs-pub-ro/so-assignments). Every project has it's own specific stress tests. Obviously, you can't test a projects with an other one's checker. The tests are located in the ```checker``` folder of the project's name directory.
 <p>
-For example, the checker for the '''1-multi''' project is in the '''~1-multi/checker/''' folder.
-For the checker to run, you should copy the executable file in the '''checker''' folder.
+For example, the checker for the ```1-multi``` project is in the ```~1-multi/checker/``` folder.
+For the checker to run, you should copy the executable file in the ```checker``` folder.
 
 ### Break down
 Tests are made for every general functionality required. Also, they include a coding style check and a running time check.
 
 ### Coding style
-The checker uses the '''checkpatch''' script from [Linus Torvald's GitHub page.](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl). Make sure you have it in your PATH environment variable before running the rest. It will ask you the path to the code files.
+The checker uses the ```checkpatch``` script from [Linus Torvald's GitHub page.](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl). Make sure you have it in your PATH environment variable before running the rest. It will ask you the path to the code files.
 The codyng style standard we shall adhere to is the Linux Kernel one.
 
 ## Authors

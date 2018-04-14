@@ -43,7 +43,7 @@ They include a coding style check and a running time check.
 
 ### Coding style
 The checker uses the ```checkpatch``` script from [Linus Torvald's GitHub page](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl). Make sure you have it in your PATH environment variable before running the rest. 
-The coding style standard I try adhere to is the Linux Kernel one.
+The coding style standard I try to adhere to is the Linux Kernel one.
 
 ## Authors
 * **SO Stuff** - *The skeleton*

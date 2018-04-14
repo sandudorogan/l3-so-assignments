@@ -20,6 +20,7 @@ or
 * Windows 7 Professional
   - Visual C++ Express 2010
   - cl.exe
+  
 These are 32 bit systems. In some cases, like the ```1-multi``` project, you can't run it on a 64 bit system. It needs it's dynamic libraries, compiled on 32 bits systems.
 
 ### Installing
@@ -39,7 +40,7 @@ The checker uses the ```checkpatch``` script from [Linus Torvald's GitHub page.]
 The codyng style standard we shall adhere to is the Linux Kernel one.
 
 ## Authors
-* **SO Stuff** - *The skeleton* - [theirs GitHub](https://github.com/systems-cs-pub-ro/). [Team members](https://ocw.cs.pub.ro/courses/so)
+* **SO Stuff** - *The skeleton* - [their GitHub](https://github.com/systems-cs-pub-ro/). [Team members](https://ocw.cs.pub.ro/courses/so)
 * **Sandu Dorogan** - *Solutions*
 
 ## License

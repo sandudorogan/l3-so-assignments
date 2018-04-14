@@ -5,11 +5,10 @@ Here you can take some possible solutions for the Operating Systems homeworks.
 This repo is based on the [course's stuff's one](https://github.com/systems-cs-pub-ro/so-assignments).
 For all the features, like a nice checker for both functionality and the coding style, first clone their GitHub repo, then copy the files from this repo over the ones in the same folder.
 Note: All the projects are made starting from the skeleton code, provided in their Git repo.
-<p>
+
 [Here](https://ocw.cs.pub.ro/courses/so) you can find the assignments texts, with all the specifics and the constraints. 
 I'm attending a in Romanian curricula, hence, the assignment's text language.
 If otherwise specified in the homework's Readme file, the homework obedes all of the constraints imposed. 
-</p>
 
 ### Prerequisites
 All of the assignments are developed on either:
@@ -28,10 +27,9 @@ Depending on the system you are on, and if the project supports it, project can 
 
 ## Testing
 If otherwise specified in the project Readme file, the tests can be obtained from the [stuff's GitHub page](https://github.com/systems-cs-pub-ro/so-assignments). Every project has it's own specific stress tests. Obviously, you can't test a projects with an other one's checker. The tests are located in the ```checker``` folder of the project's name directory.
-<p>
+
 For example, the checker for the ```1-multi``` project is in the ```~1-multi/checker/``` folder.
 For the checker to run, you should copy the executable file in the ```checker``` folder.
-</p>
 
 ### Break down
 Tests are made for every general functionality required. Also, they include a coding style check and a running time check.
